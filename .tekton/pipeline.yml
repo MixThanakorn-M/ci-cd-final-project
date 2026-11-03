@@ -34,16 +34,20 @@ spec:
         - name: output
           workspace: output
       taskRef:
-        name: git-clone
-        kind: ClusterTask
+        resolver: cluster
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: git-clone
+          - name: namespace
+            value: openshift-pipelines
       params:
-        - name: url
+        - name: URL
           value: $(params.repo-url)
-        - name: revision
+        - name: REVISION
           value: $(params.branch)
-        - name: subdirectory
-          value: ""
-        - name: deleteExisting
+        - name: DELETE_EXISTING
           value: "true"
       runAfter:
         - cleanup
@@ -57,6 +61,8 @@ spec:
       params:
         - name: image
           value: "python:3.9-slim"
+        - name: path
+          value: "service"
         - name: args
           value: ["--count", "--max-complexity=10", "--max-line-length=127", "--statistics"]
       runAfter:
@@ -79,8 +85,14 @@ spec:
         - name: source
           workspace: output
       taskRef:
-        name: buildah
-        kind: ClusterTask
+        resolver: cluster
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: buildah
+          - name: namespace
+            value: openshift-pipelines
       params:
         - name: IMAGE
           value: $(params.build-image)
@@ -91,8 +103,14 @@ spec:
 
     - name: deploy
       taskRef:
-        name: openshift-client
-        kind: ClusterTask
+        resolver: cluster
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: openshift-client
+          - name: namespace
+            value: openshift-pipelines
       params:
         - name: SCRIPT
           value: |

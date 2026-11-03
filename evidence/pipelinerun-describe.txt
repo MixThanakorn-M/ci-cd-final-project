@@ -1,0 +1,41 @@
+Name:              cd-pipeline-run-q25t2
+Namespace:         mixthanakorn-dev
+Pipeline Ref:      cd-pipeline
+Service Account:   pipeline
+Labels:
+ tekton.dev/pipeline=cd-pipeline
+Annotations:
+ results.tekton.dev/record=mixthanakorn-dev/results/16877255-af0f-4d8e-802b-1bf75797d5c6/records/16877255-af0f-4d8e-802b-1bf75797d5c6
+ results.tekton.dev/result=mixthanakorn-dev/results/16877255-af0f-4d8e-802b-1bf75797d5c6
+ results.tekton.dev/stored=true
+
+Status
+
+STARTED         DURATION   STATUS
+4 minutes ago   2m12s      Succeeded
+
+Timeouts
+ Pipeline:   1h0m0s
+
+Params
+
+ NAME          VALUE
+ app-name      counter-service
+ branch        main
+ build-image   image-registry.openshift-image-registry.svc:5000/mixthanakorn-dev/counter-service:latest
+ repo-url      https://github.com/MixThanakorn-M/ci-cd-final-project.git
+
+Workspaces
+
+ NAME     SUB PATH   WORKSPACE BINDING
+ output   ---        PersistentVolumeClaim (claimName=oc-lab-pvc)
+
+Taskruns
+
+ NAME                              TASK NAME   STARTED         DURATION   STATUS
+ cd-pipeline-run-q25t2-deploy      deploy      1 minute ago    5s         Succeeded
+ cd-pipeline-run-q25t2-build       build       2 minutes ago   48s        Succeeded
+ cd-pipeline-run-q25t2-nose        nose        3 minutes ago   20s        Succeeded
+ cd-pipeline-run-q25t2-flake8      flake8      3 minutes ago   26s        Succeeded
+ cd-pipeline-run-q25t2-git-clone   git-clone   3 minutes ago   11s        Succeeded
+ cd-pipeline-run-q25t2-cleanup     cleanup     4 minutes ago   21s        Succeeded
