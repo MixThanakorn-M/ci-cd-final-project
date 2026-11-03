@@ -80,7 +80,7 @@ spec:
       runAfter:
         - flake8
 
-    - name: build
+    - name: buildah
       workspaces:
         - name: source
           workspace: output
@@ -117,4 +117,4 @@ spec:
             echo "Deploying $(params.app-name) with image $(params.build-image)"
             oc create deployment $(params.app-name) --image=$(params.build-image) --dry-run=client -o yaml | oc apply -f -
       runAfter:
-        - build
+        - buildah
